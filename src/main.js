@@ -1,5 +1,3 @@
-import './style.css';
-
 const API_SUBJECTS_URL = '/api/bangumi/subjects';
 const API_SUBJECT_DETAIL_URL = '/api/bangumi/subjects';
 const FALLBACK_COVER_URL = 'https://bgm.tv/img/bangumi/404.png';

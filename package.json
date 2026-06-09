@@ -10,6 +10,6 @@
     "generate:ids": "node scripts/generate-subject-ids.js"
   },
   "devDependencies": {
-    "vite": "latest"
+    "vite": "8.0.16"
   }
 }
