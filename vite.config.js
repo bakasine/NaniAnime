@@ -54,6 +54,27 @@ async function handleSubjectsRequest(req, res, url) {
   await forwardResponse(response, res);
 }
 
+async function handleSubjectDetailRequest(req, res, subjectId) {
+  if (req.method !== 'GET') {
+    res.setHeader('allow', 'GET');
+    sendJson(res, 405, { error: 'Method Not Allowed' });
+    return;
+  }
+
+  if (!/^\d+$/.test(subjectId)) {
+    sendJson(res, 400, { error: 'Invalid subject id' });
+    return;
+  }
+
+  const response = await fetch(`${BANGUMI_SUBJECTS_URL}/${subjectId}`, {
+    headers: {
+      'user-agent': BANGUMI_USER_AGENT,
+    },
+  });
+
+  await forwardResponse(response, res);
+}
+
 async function handleSearchRequest(req, res, url) {
   if (req.method !== 'POST') {
     res.setHeader('allow', 'POST');
@@ -81,6 +102,12 @@ function bangumiProxy() {
     try {
       if (url.pathname === '/api/bangumi/subjects') {
         await handleSubjectsRequest(req, res, url);
+        return;
+      }
+
+      if (url.pathname.startsWith('/api/bangumi/subjects/')) {
+        const subjectId = url.pathname.slice('/api/bangumi/subjects/'.length);
+        await handleSubjectDetailRequest(req, res, subjectId);
         return;
       }
 
