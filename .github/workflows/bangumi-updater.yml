@@ -14,6 +14,10 @@ permissions:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    
+    # 1. 添加这个环境变量，让 Actions 插件提前使用 Node 24
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
@@ -22,14 +26,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 确保使用 Node.js 18+ 以原生支持 fetch
+          # 2. 将你脚本所使用的 Node 版本从 '20' 升级到 '24'
+          node-version: '24' 
 
       - name: Run Scraper Script
-        # 注意：这里假设你的脚本名为 main.js 且放在根目录。
-        # 如果在 scripts 文件夹里，请改为 node scripts/generate-subject-ids.js
-        run: node scripts/generate-subject-ids.js
+        run: node main.js 
         env:
-          # 你可以在这里调整脚本的环境变量，比如稍微调低并发防止被墙
           PAGE_LIMIT: 50
           PAGE_CONCURRENCY: 3
           MAX_RETRIES: 3
