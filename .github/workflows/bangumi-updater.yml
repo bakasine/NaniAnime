@@ -5,7 +5,7 @@ on:
   workflow_dispatch: 
   # 定时任务：每天北京时间凌晨 3 点自动执行 (UTC 时间 19:00)
   schedule:
-    - cron: '0 19 * * *'
+    - cron: '0 19 1 * *'
 
 # 设置权限：允许 Action 将更新后的 JSON 文件推送到你的仓库
 permissions:
