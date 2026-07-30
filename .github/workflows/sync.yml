@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 每天 UTC 时间 0 点（北京时间早上 8 点）自动运行一次
+    - cron: '0 11 1 * *' 
   workflow_dispatch: # 允许你在网页端手动点击按钮触发
 
 jobs:
